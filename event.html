@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>event</title>
+  </head>
+  <body>
+    <div id="toplevel">
+      父元素
+      <div>输入框：<input id="input" type="text" /></div>
+    </div>
+  </body>
+  <script>
+    const toplevel = document.getElementById("toplevel");
+    const input = document.getElementById("input");
+    toplevel.addEventListener("focus", (val) => {
+      console.log("父元素接收到的事件：", val);
+    });
+    input.addEventListener("focus", (val) => {
+      console.log("目标元素接收到的事件：", val);
+    });
+    // const customEvent = new CustomEvent("emitEvent", {
+    //   detail: "自定义事件的参数",
+    //   bubbles: true,
+    // });
+    // input.dispatchEvent(customEvent);
+    const event = new Event("focus", {
+      bubbles: false, //默认值为 false，表示该事件是否冒泡。
+      cancelable: true, //默认值为 false，表示该事件能否被取消。
+      composed: false, //默认值为 false，指示事件是否会在影子 DOM 根节点之外触发侦听器。
+    });
+    input.dispatchEvent(event);
+  </script>
+</html>
